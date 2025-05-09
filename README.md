@@ -3,7 +3,7 @@ Quiz-Arena is an interactive and responsive web-based quiz platform built using 
 
 🔗**Live Demo**
 🎮 Check out the live version of Quiz-Arena here:
-👉 https://your-app-name.netlify.app
+👉 https://quiz-arena-in.netlify.app
 
  📸 Screenshots
 ![image](https://github.com/rohit159159/Quiz-WebApp/blob/22b46919ebe062cd3611a3494b076561683cab5d/quiz.png)
