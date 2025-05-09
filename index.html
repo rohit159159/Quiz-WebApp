@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Quiz-Arena | Learning Platform</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/jpg" href="./assets/OIP-removebg-preview.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="brand">
+      <img src="./assets/logo.png" alt="Logo" />
+      Quiz-Arena
+    </div>
+    <div class="burger" aria-label="Menu Toggle">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#books">Resources</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+      <button class="login-btn" id="loginBtn">Login</button>
+      <button class="signup-btn" id="signupBtn">Signup</button>
+  </nav>
+    </ul>
+    </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+  <!-- Topic Selector Button -->
+         <button class="buttonn toggle-dark" id="toggleDarkMode"> 🌞</button>
+    <button class="btn" id="selectTopicBtn">Select Topic</button>
+
+    <!-- Hidden Topic Panel -->
+<div id="topicMenu" class="topic-menu">
+  <h3>Select a Topic</h3>
+  <a class="btn small" href="./java-quiz.html">Java</a>
+  <a class="btn small" href="./python-quiz.html">Python</a>
+  <a class="btn small" href="./html-quiz.html">HTML</a>
+  <a class="btn small" href="./js-quiz.html">JavaScript</a>
+  </div>
+
+    <h1>Ready to Test Your Knowledge?</h1>
+    <a class="btn" href="./game.html">Play Quiz</a>
+    <a class="btn" href="./highscores.html">View High Scores</a>
+  </div>
+
+  <!-- Books Section -->
+<section id="books" class="container">
+  <h2>Programming Language </h2>
+  <p>Here are some great resources to help you learn programming online:</p>
+  <div class="book-boxes">
+    <!-- Java Book -->
+    <div class="book-box">
+      <div class="book-image-placeholder">
+         <img src="assets/java.jpg" alt="">
+      </div>
+      <a href="resources/JAVA NOTES.pdf" class="btn small" target="_blank">Java</a>
+    </div>
+    <!-- Python Book -->
+    <div class="book-box">
+      <div class="book-image-placeholder">
+        <img src="assets/python.jpg" alt="">
+      </div>
+      <a href="resources/python book .pdf" class="btn small" target="_blank">Python</a>
+    </div>
+    <!-- C++ Book -->
+    <div class="book-box">
+      <div class="book-image-placeholder">
+        <img src="assets/c++.jpg" alt="">
+      </div>
+      <a href="resources/Master Coding In C++ Programming.pdf" class="btn small" target="_blank">C++</a>
+    </div>
+    <!-- JavaScript Book -->
+    <div class="book-box">
+      <div class="book-image-placeholder">
+       <img src="assets/js.jpg" alt="">
+      </div>
+      <a href="resources/JAVASCRIPT NOTES FOR BEGINNERS.pdf" class="btn small" target="_blank">JavaScript</a>
+    </div>
+     <!-- HTML Book -->
+     <div class="book-box">
+      <div class="book-image-placeholder">
+        <img src="assets/html.jpg" alt="">
+      </div>
+      <a href="resources/HTML Notes.pdf" class="btn small" target="_blank">HTML</a>
+    </div>
+    <!-- CSS Book -->
+    <div class="book-box">
+      <div class="book-image-placeholder">
+       <img src="assets/css.jpg" alt="">
+      </div>
+      <a href="resources/CSS Notes with animation.pdf" class="btn small" target="_blank">CSS </a>
+    </div>
+  </div>
+</section>
+
+  <!-- Footer -->
+<footer id="contact">
+  <div class="footer-content">
+    <p>&copy; 2025 Quiz-Arena | Created by Rohit</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/rohitkumar_.0.0?igsh=cjk0b2lqZTM4aWls" target="_blank" class="social-icon"><img src="https://img.icons8.com/ios-filled/50/FF9F00/instagram-new.png" alt="Instagram"></a>
+      <a href="http://www.linkedin.com/in/-rohitkumar" target="_blank" class="social-icon"><img src="https://img.icons8.com/ios-filled/50/FF9F00/linkedin.png" alt="LinkedIn"></a>
+      <a href="https://github.com/rohit159159" target="_blank" class="social-icon"><img src="https://img.icons8.com/ios-filled/50/FF9F00/github.png" alt="GitHub"></a>
+    </div>
+    
+
+  <!-- Newsletter Section -->
+  <div class="newsletter-section">
+    <h4>Stay Updated!</h4>
+    <form action="#">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit" class="btn small">Subscribe</button>
+    </form>
+  </div>
+
+  <!-- Legal Links -->
+  <div class="legal-links">
+    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+  </div>
+
+</footer>
+<script src="index.js"></script>
+</body>
+</html>  

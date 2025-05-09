@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quiz-Arena | Learning Platform</title>
+    <link rel="icon" type="image/jpg" href="./assets/OIP-removebg-preview.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #74ebd5, #acb6e5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+      }
+  
+      .container {
+        margin-top: 1%;
+        width: 90%;
+        max-width: 700px;
+        background-color: white;
+        padding: .8rem .8rem;
+        border-radius: 16px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease-in-out;
+      }
+      
+
+      .hidden {
+        display: none;
+      }
+
+      #loader {
+        border: 1rem solid #f3f3f3;
+        border-top: 1rem solid #56a5eb;
+        border-radius: 50%;
+        width: 8rem;
+        height: 8rem;
+        animation: spin 1.2s linear infinite;
+        margin: auto;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      #game {
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+      }
+
+      #game.visible {
+        opacity: 1;
+      }
+
+      #hud {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .hud-prefix {
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .hud-main-text {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      #timer {
+        font-size: 1.1rem;
+        color: #e74c3c;
+        font-weight: 600;
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+
+      #progressBar {
+        width: 100%;
+        height: 1rem;
+        background-color: #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 0.5rem;
+      }
+
+      #progressBarFull {
+        height: 100%;
+        width: 0%;
+        background-color: #56a5eb;
+        transition: width 0.3s ease-in-out;
+      }
+
+      #question {
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        line-height: 1.4;
+      }
+
+      .choice-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        border: 2px solid #ddd;
+        border-radius: 12px;
+        background-color: #f9f9f9;
+        transition: all 0.25s ease-in-out;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .choice-container:hover {
+        cursor: pointer;
+        box-shadow: 0 0.5rem 1.2rem rgba(86, 185, 235, 0.4);
+        transform: scale(1.01);
+      }
+
+      .choice-prefix {
+        padding: 1.2rem 1.5rem;
+        background-color: #56a5eb;
+        color: white;
+        font-weight: bold;
+        border-radius: 12px 0 0 12px;
+      }
+
+      .choice-text {
+        padding: 1.2rem;
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      .correct {
+        background-color: #2ecc71 !important;
+        color: white !important;
+      }
+
+      .incorrect {
+        background-color: #e74c3c !important;
+        color: white !important;
+      }
+  
+      @media (max-width: 600px) {
+        .container {
+          padding: 1.5rem;
+        }
+
+        #question {
+          font-size: 1.3rem;
+        }
+
+        .choice-text {
+          padding: 1rem;
+          font-size: 0.95rem;
+        }
+
+        .choice-prefix {
+          padding: 1rem 1.2rem;
+        }
+
+        .hud-main-text {
+          font-size: 1.5rem;
+        }
+
+        #timer {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="loader"></div>
+
+      <div id="game" class="hidden">
+        <div id="hud">
+          <div id="hud-item">
+            <p id="progressText" class="hud-prefix">Question</p>
+            <div id="progressBar">
+              <div id="progressBarFull"></div>
+            </div>
+          </div>
+          <div id="hud-item">
+            <p class="hud-prefix">Score</p>
+            <h1 class="hud-main-text" id="score">0</h1>
+            <p id="timer">Time Left: 20s</p>
+          </div>
+        </div>
+
+        <h2 id="question">Loading question...</h2>
+
+        <div class="choice-container"><p class="choice-prefix">A</p><p class="choice-text" data-number="1"></p></div>
+        <div class="choice-container"><p class="choice-prefix">B</p><p class="choice-text" data-number="2"></p></div>
+        <div class="choice-container"><p class="choice-prefix">C</p><p class="choice-text" data-number="3"></p></div>
+        <div class="choice-container"><p class="choice-prefix">D</p><p class="choice-text" data-number="4"></p></div>
+      </div>
+ 
+    <div style="text-align: center; margin-top: 1.5rem;" id="control-buttons" class="hidden">
+  <button id="skipBtn" style="padding: 0.75rem 1.5rem; font-size: 1rem; margin: 0 1rem; border: none; border-radius: 8px; background-color: #f1c40f; color: white; cursor: pointer;">Skip Question</button>
+  <button id="exitBtn" style="padding: 0.75rem 1.5rem; font-size: 1rem; margin: 0 1rem; border: none; border-radius: 8px; background-color: #e74c3c; color: white; cursor: pointer;">Exit Quiz</button>
+</div>
+    </div>
+    
+    <script>
+      const question = document.getElementById('question');
+      const choices = Array.from(document.getElementsByClassName('choice-text'));
+      const progressText = document.getElementById('progressText');
+      const scoreText = document.getElementById('score');
+      const progressBarFull = document.getElementById('progressBarFull');
+      const loader = document.getElementById('loader');
+      const game = document.getElementById('game');
+      const timerText = document.getElementById('timer');
+    
+      const skipBtn = document.getElementById('skipBtn');
+      const exitBtn = document.getElementById('exitBtn');
+    
+      let currentQuestion = {};
+      let acceptingAnswers = false;
+      let score = 0;
+      let questionCounter = 0;
+      let availableQuestions = [];
+      let questions = [];
+    
+      const CORRECT_BONUS = 10;
+      const MAX_QUESTIONS = 20;
+      let time = 20;
+      let timerInterval;
+      fetch('https://quizapi.io/api/v1/questions?category=code&tags=HTML&limit=10', {
+        headers: {
+          'X-Api-Key': 'CzZZWTqoHxKc7o1aEBRFhf8nv9NbTiyUsudeklAQ'
+        }
+      })
+      .then(response => response.json())
+      .then(loadedQuestions => {
+        questions = loadedQuestions.map(q => {
+          const formattedQuestion = {
+            question: decodeHTML(q.question),
+            choices: [],
+            correctAnswers: []
+          };
+      
+          // Extract and decode answer choices
+          for (let key in q.answers) {
+            if (q.answers[key]) {
+              formattedQuestion.choices.push({
+                text: decodeHTML(q.answers[key]),
+                key: key
+              });
+            }
+          }
+      
+          // Determine correct answers
+          for (let key in q.correct_answers) {
+            if (q.correct_answers[key] === 'true') {
+              // Extract the corresponding answer key (e.g., 'answer_a')
+              const answerKey = key.replace('_correct', '');
+              formattedQuestion.correctAnswers.push(answerKey);
+            }
+          }
+      
+          return formattedQuestion;
+        });
+      
+        startGame();
+      })
+      .catch(err => console.error(err));
+      
+      function decodeHTML(html) {
+        const txt = document.createElement('textarea');
+        txt.innerHTML = html;
+        return txt.value;
+      }
+    
+      function startGame() {
+        questionCounter = 0;
+        score = 0;
+        availableQuestions = [...questions];
+        getNewQuestion();
+        loader.classList.add('hidden');
+        game.classList.remove('hidden');
+        game.classList.add('visible');
+    
+        // Show the buttons after the game starts
+        document.getElementById('control-buttons').classList.remove('hidden');
+      }
+    
+      function getNewQuestion() {
+        clearInterval(timerInterval);
+      
+        if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+          localStorage.setItem('mostRecentScore', score);
+          return window.location.assign('./end.html');
+        }
+      
+        questionCounter++;
+        progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
+        progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
+      
+        const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+        currentQuestion = availableQuestions[questionIndex];
+        question.innerText = currentQuestion.question;
+      
+        choices.forEach((choiceElement, index) => {
+          const choice = currentQuestion.choices[index];
+          if (choice) {
+            choiceElement.innerText = choice.text;
+            choiceElement.dataset['key'] = choice.key;
+            choiceElement.parentElement.style.display = 'flex';
+          } else {
+            choiceElement.parentElement.style.display = 'none';
+          }
+        });
+      
+        availableQuestions.splice(questionIndex, 1);
+        acceptingAnswers = true;
+        startTimer();
+      }
+      
+      choices.forEach(choice => {
+        choice.addEventListener('click', e => {
+          if (!acceptingAnswers) return;
+          acceptingAnswers = false;
+          clearInterval(timerInterval);
+      
+          const selectedChoice = e.target;
+          const selectedAnswerKey = selectedChoice.dataset['key'];
+      
+          const isCorrect = currentQuestion.correctAnswers.includes(selectedAnswerKey);
+          const classToApply = isCorrect ? 'correct' : 'incorrect';
+      
+          if (isCorrect) incrementScore(CORRECT_BONUS);
+      
+          selectedChoice.parentElement.classList.add(classToApply);
+      
+          setTimeout(() => {
+            selectedChoice.parentElement.classList.remove(classToApply);
+            getNewQuestion();
+          }, 1000);
+        });
+      });
+      
+      function incrementScore(num) {
+        score += num;
+        scoreText.innerText = score;
+      }
+    
+      function startTimer() {
+        time = 20;
+        timerText.innerText = `Time Left: ${time}s`;
+        timerInterval = setInterval(() => {
+          time--;
+          timerText.innerText = `Time Left: ${time}s`;
+          if (time <= 0) {
+            clearInterval(timerInterval);
+            acceptingAnswers = false;
+            getNewQuestion();
+          }
+        }, 1000);
+      }
+    
+      // Skip question functionality
+      skipBtn.addEventListener('click', () => {
+        clearInterval(timerInterval); // Stop the current timer
+        getNewQuestion(); // Move to the next question
+      });
+    
+      // Exit quiz functionality
+      exitBtn.addEventListener('click', () => {
+        localStorage.setItem('mostRecentScore', score); // Store score
+        window.location.assign('./end.html'); // Redirect to the quiz end page
+      });
+
+    </script>
+    
+  </body>
+</html>
