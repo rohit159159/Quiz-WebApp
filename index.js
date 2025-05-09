@@ -49,3 +49,11 @@ document.getElementById("loginBtn").addEventListener("click", function() {
 document.getElementById("signupBtn").addEventListener("click", function() {
   window.location.href = "login-page.html"; // Replace with your actual signup page path
 });
+//loader//
+ window.addEventListener("load", () => {
+    setTimeout(() => {
+      const loader = document.getElementById("loader-wrapper");
+      loader.style.opacity = 0;
+      loader.style.visibility = "hidden";
+    }, 2000); 
+  });
